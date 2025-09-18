@@ -40,6 +40,3 @@ Este repositorio contiene dos contratos inteligentes desarrollados en Solidity p
 
 ---
 
-## Créditos
-
-Desarrollado por [dmbruno](https://github.com/dmbruno)
