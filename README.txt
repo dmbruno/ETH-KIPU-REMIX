@@ -1,134 +1,120 @@
-# ETH-KIPU REMIX
+# ETH-KIPU-REMIX
 
-Este proyecto contiene **tres contratos inteligentes educativos** escritos en Solidity para la red Ethereum, pensados para aprender y experimentar con conceptos básicos de blockchain y desarrollo descentralizado.  
-Cada contrato aborda un caso de uso distinto: mensajes, gestión de tareas y muro colaborativo de nombres.
-
----
-
-## Tabla de contenidos
-
-- [Descripción General](#descripción-general)
-- [Contratos](#contratos)
-  - [1. `Mensaje`](#1-mensaje)
-  - [2. `ToDoList`](#2-todolist)
-  - [3. `Wall`](#3-wall)
-- [Uso en Remix](#uso-en-remix)
-- [Despliegue a Testnet y Frontend](#despliegue-a-testnet-y-frontend)
-- [Consideraciones de Seguridad](#consideraciones-de-seguridad)
-- [Autores y Créditos](#autores-y-créditos)
-
----
-
-## Descripción General
-
-El repositorio incluye tres contratos:
-
-- **Mensaje:** Guarda y recupera mensajes de texto.
-- **ToDoList:** Permite crear y eliminar tareas, simulando una lista de pendientes.
-- **Wall:** Muro colaborativo donde los usuarios pueden agregar su nombre solo una vez.
-
-Todos los contratos están diseñados para ser simples y didácticos, ideales para practicar en Remix y desplegar a testnet (Sepolia, Goerli).
+Repositorio educativo con **tres contratos inteligentes en Solidity**: Mensaje, ToDoList y Wall.  
+Cada uno demuestra funcionalidades básicas de Ethereum y está pensado para aprender desde cero.
 
 ---
 
 ## Contratos
 
-### 1. `Mensaje`
+### 1. Mensaje
 
-Contrato para almacenar un mensaje personalizado en la blockchain.
+**Descripción:**  
+Permite guardar y consultar un mensaje de texto en la blockchain.
 
-- **Funciones principales:**
-  - `setMensaje(string _mensaje)`: Guarda un nuevo mensaje.
-  - `getMensaje()`: Devuelve el mensaje actual.
+- **Funciones:**
+  - `setMensaje(string)`: Guarda un mensaje.
+  - `getMensaje()`: Retorna el mensaje guardado.
 
-- **Eventos:**
-  - `Mensaje_MensajeActualizado(string mensaje)`: Se emite al actualizar el mensaje.
-
-- **Uso típico:**  
-  Ideal para aprender cómo guardar y leer información simple en la blockchain.
+- **Evento:**  
+  - `Mensaje_MensajeActualizado(string mensaje)`
 
 ---
 
-### 2. `ToDoList`
+### 2. ToDoList
 
-Contrato para gestionar una lista de tareas.
+**Descripción:**  
+Gestor de tareas simple. Permite agregar y eliminar tareas, consultarlas y emite eventos.
 
-- **Estructura principal:**
-  - `struct Tarea`: Cada tarea tiene descripción y fecha de creación.
+- **Funciones:**
+  - `setTarea(string)`: Agrega una tarea.
+  - `eliminarTarea(string)`: Elimina una tarea por descripción.
+  - `getTarea()`: Retorna todas las tareas.
 
-- **Funciones principales:**
-  - `setTarea(string _descripcion)`: Añade una nueva tarea.
-  - `eliminarTarea(string _descripcion)`: Elimina una tarea por descripción.
-  - `getTarea()`: Devuelve todas las tareas actuales.
-
-- **Eventos:**
-  - `ToDoList_TareaAnadida(Tarea tarea)`: Se emite al agregar tarea.
-  - `ToDoList_TareaCompletadaYEliminada(string descripcion)`: Se emite al eliminar tarea.
-
-- **Uso típico:**  
-  Simula un gestor de pendientes. Permite practicar arrays, structs y eventos.
+- **Eventos:**  
+  - `ToDoList_TareaAnadida(Tarea tarea)`  
+  - `ToDoList_TareaCompletadaYEliminada(string descripcion)`
 
 ---
 
-### 3. `Wall` (ETH-KIPU Wall)
+### 3. Wall (Muro ETH-KIPU)
 
-Contrato colaborativo donde cada usuario puede agregar su nombre al muro solo una vez.
+**Descripción:**  
+Muro colaborativo de nombres. Cada usuario puede agregar su nombre sólo una vez.
 
-- **Variables principales:**
-  - `string[] public names`: Array público de nombres.
-  - `mapping(address => bool) public hasAdded`: Control para evitar duplicados por dirección.
+- **Funciones:**
+  - `addName(string)`: Agrega tu nombre al muro.
+  - `getNames()`: Devuelve el listado de nombres.
+  - `count()`: Devuelve la cantidad de nombres.
 
-- **Funciones principales:**
-  - `addName(string name)`: Agrega nombre, solo una vez por dirección.
-  - `getNames()`: Devuelve el array de nombres.
-  - `count()`: Devuelve la cantidad actual de nombres.
-
-- **Evento:**
-  - `NameAdded(address indexed user, string name)`: Se emite al agregar nombre.
-
-- **Uso típico:**  
-  Ideal para crear muros colaborativos, listas de firmas, etc.
+- **Evento:**  
+  - `NameAdded(address indexed user, string name)`
 
 ---
 
-## Uso en Remix
+## Instrucciones de Despliegue
 
-1. Copia el contrato que quieras probar en un archivo `.sol` dentro de Remix IDE.
-2. Compílalo con la versión `0.8.30` de Solidity.
-3. Despliega en el entorno de pruebas (Remix VM) o con MetaMask en una testnet pública.
-4. Interactúa con las funciones públicas y revisa los eventos.
+### 1. Usando **Remix IDE** (recomendado para principiantes)
 
----
-
-## Despliegue a Testnet y Frontend
-
-- Despliega el contrato en Sepolia/Goerli usando MetaMask.
-- Copia la dirección del contrato y el ABI generado.
-- Usa el ABI y dirección en dApps front-end (React, Ethers.js, Web3.js, etc.).
-- ¡Puedes conectar tu frontend para mostrar mensajes, tareas o el muro colaborativo!
+1. Entra a [Remix](https://remix.ethereum.org/).
+2. Crea un archivo `.sol` y pega el contrato que quieras desplegar.
+3. Selecciona compilador Solidity versión **0.8.30**.
+4. Compila el contrato.
+5. Selecciona "Injected Provider - MetaMask" en la pestaña **Deploy & Run**.
+6. Elige la red de testnet (por ejemplo, Sepolia).
+7. Haz click en **Deploy**.
+8. Guarda la dirección del contrato desplegado.
 
 ---
 
-## Consideraciones de Seguridad
+### 2. Opcional: Deploy desde Hardhat/truffle
 
-> **IMPORTANTE**:  
-> Estos contratos son **educativos** y **no deben usarse en producción**.  
-> No contemplan todas las medidas de seguridad necesarias para aplicaciones reales.
+> Este proyecto está pensado para Remix, pero puedes adaptarlo fácilmente a Hardhat o Truffle siguiendo sus tutoriales.
 
 ---
 
-## Autores y Créditos
+## Cómo interactuar con los contratos
 
-- **Diego Bruno** (SaltaLabsII) – Contrato `Mensaje`
-- **i3arba - 77 Innovation Labs** – Contrato `ToDoList`
-- **dmbruno y comunidad ETH-KIPU** – Contrato `Wall`
+### Usando **Remix**
+
+1. Ve a la sección "Deployed Contracts".
+2. Despliega las funciones y prueba:
+   - En **Mensaje**: escribe un mensaje y ejecútalo, luego consulta el mensaje.
+   - En **ToDoList**: agrega tareas, elimínalas por descripción, consulta el array.
+   - En **Wall**: agrega tu nombre (sólo una vez por dirección), consulta listado y cantidad.
+
+3. Observa los **eventos** en la pestaña "Logs" o "Transacciones" de Remix.
 
 ---
 
-## Licencia
+### Usando **Frontend/Web3 (React, Ethers.js, Web3.js)**
 
-MIT – Uso libre y educativo.
+1. Copia la **dirección del contrato** y el **ABI** generado tras el deploy.
+2. Usa una librería como [ethers.js](https://docs.ethers.org/) para conectarte al contrato desde tu dApp.
+3. Ejemplo de interacción (con ethers.js):
+   ```js
+   import { Contract, BrowserProvider } from "ethers";
+   const provider = new BrowserProvider(window.ethereum);
+   const contrato = new Contract(CONTRACT_ADDRESS, ABI, provider);
+   const mensaje = await contrato.getMensaje();
+   ```
+4. Asegúrate de tener MetaMask en la misma red que el deploy.
 
 ---
 
-**¿Quieres contribuir, mejorar los contratos o agregar más ejemplos? ¡Bienvenido!**
+## Recomendaciones de seguridad
+
+> **Estos contratos son solo para fines educativos. No los uses en producción.**
+
+---
+
+## Autores
+
+- Diego Bruno (SaltaLabsII): Mensaje
+- i3arba - 77 Innovation Labs: ToDoList
+- dmbruno & comunidad ETH-KIPU: Wall
+
+---
+
+¿Dudas, sugerencias o mejoras?  
+¡Contribuye o abre un issue!
