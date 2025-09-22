@@ -1,0 +1,165 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					}
+				],
+				"name": "NameAdded",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					}
+				],
+				"name": "addName",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "count",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getNames",
+				"outputs": [
+					{
+						"internalType": "string[]",
+						"name": "",
+						"type": "string[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "hasAdded",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "names",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"author": "dmbruno y comunidad ETH-KIPU",
+			"kind": "dev",
+			"methods": {
+				"addName(string)": {
+					"params": {
+						"name": "El nombre a agregar"
+					}
+				},
+				"getNames()": {
+					"returns": {
+						"_0": "Un array de strings con los nombres"
+					}
+				}
+			},
+			"title": "ETH-KIPU Wall - Un muro colaborativo de nombres en la blockchain.",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"addName(string)": {
+					"notice": "Agrega tu nombre al muro. Solo una vez por dirección."
+				},
+				"count()": {
+					"notice": "Devuelve cuántos nombres hay en el muro"
+				},
+				"getNames()": {
+					"notice": "Devuelve todos los nombres agregados"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"modulo2/muro.sol": "Wall"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"modulo2/muro.sol": {
+			"keccak256": "0xd59ebfc92d2d5eb9fe9b3f3345056126801041aee02896a095cf63729ce88df5",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://335de02c0e3b359f36c4e86d9261d8f2f3a4c5b618ba2a17bd26e08e5afacc58",
+				"dweb:/ipfs/QmZayh3KKhvvMWJtQMvxKrE89urh2vnCDiykKasicpMTKc"
+			]
+		}
+	},
+	"version": 1
+}

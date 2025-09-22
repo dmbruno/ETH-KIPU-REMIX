@@ -1,0 +1,100 @@
+{
+	"compiler": {
+		"version": "0.8.30+commit.73712a01"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "mensaje",
+						"type": "string"
+					}
+				],
+				"name": "Mensaje_MensajeActualizado",
+				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "getMensaje",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "_mensaje",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_mensaje",
+						"type": "string"
+					}
+				],
+				"name": "setMensaje",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"getMensaje()": {
+					"returns": {
+						"_mensaje": "almacenado"
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"events": {
+				"Mensaje_MensajeActualizado(string)": {
+					"notice": "evento emitido cuando el mensaje es actualizado"
+				}
+			},
+			"kind": "user",
+			"methods": {
+				"getMensaje()": {
+					"notice": "función get para devolver el mensaje almacenado"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"modulo2/mensaje.sol": "Mensaje"
+		},
+		"evmVersion": "prague",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"modulo2/mensaje.sol": {
+			"keccak256": "0x76380a1a593f45772499bf1448bdcc3894d5319a00621d25fe5939e6a267dee5",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://09b7e740c2b7872fa11d5cea8155c2836e6f01929d95eeb6bb10f43cb2feb5b5",
+				"dweb:/ipfs/Qme1fSc6wrCY7iXgiFiYnpmrgNcmB6Ms6iVKRPDThpMdRA"
+			]
+		}
+	},
+	"version": 1
+}
