@@ -1,93 +1,106 @@
-# KipuBank
+# Proyectos Solidity - ETH-KIPU Remix
 
-Contrato inteligente de bóveda bancaria simple, desarrollado como proyecto práctico para el Módulo 2 del curso Web3. Permite a los usuarios depositar y retirar tokens nativos (ETH) bajo límites seguros, aplicando buenas prácticas de Solidity y seguridad.
-
----
-
-## 🚀 Descripción
-
-KipuBank es un contrato inteligente en Solidity que simula una caja de ahorro/“banco” personal para cada usuario en la red de Ethereum.  
-Permite depósitos y retiros de ETH respetando un tope máximo global y un monto máximo de retiro por transacción.  
-El contrato está pensado con seguridad y claridad para ser base de futuros proyectos y prácticas.
+Bienvenido/a a este repositorio, que recopila los principales proyectos prácticos desarrollados durante el módulo 2 del curso Web3. Aquí encontrarás contratos inteligentes de complejidad creciente, con foco principal en **KipuBank**, y otros ejemplos educativos para practicar fundamentos de Solidity y desarrollo seguro en Ethereum.
 
 ---
 
-## ✨ Características principales
+## 🌟 Proyectos incluidos
 
-- Depósitos de ETH en una bóveda personal.
-- Retiros de ETH respetando un límite máximo por operación.
-- Límite global de fondos en el banco (`bankCap`).
-- Contadores de depósitos y retiros globales y por usuario.
-- Eventos en cada operación relevante.
-- Errores personalizados para revertir con mensajes claros.
-- Funciones de consulta de balance y resumen global.
-- Función para que el owner retire fondos del banco.
-- Recepción de ETH directo vía `receive()` y `fallback()`.
-- Seguridad: patrón checks-effects-interactions, control de reentrancy, variables inmutables y bien comentadas, código limpio.
+### 1. KipuBank
+
+**KipuBank** es el eje central de este repositorio. Es un contrato inteligente que simula una bóveda personal de ETH para cada usuario, con límites globales y por transacción, registro de eventos, contadores, seguridad y buenas prácticas.
+
+#### Características principales:
+- Depósitos y retiros de ETH con límites configurables.
+- Límite global (`bankCap`) y máximo de retiro por transacción (`maxWithdrawalPerTx`), ambos inmutables.
+- Contadores globales y por usuario de depósitos y retiros.
+- Eventos claros para toda operación relevante.
+- Seguridad: patrón checks-effects-interactions, protección contra reentrancy, errores personalizados en lugar de `require` string.
+- Funciones para el owner (retiro y transferencia de propiedad).
+- Recepción segura de ETH directo (`receive` y `fallback`).
+- Código limpio, comentado y con NatSpec.
+
+#### Archivos:
+- `contracts/kipu_bank.sol`
+
+#### Despliegue e interacción:
+- **Desplegar:** En Remix, setear valores para `bankCap` y `maxWithdrawalPerTx` en wei.
+- **Interactuar:** Usar las funciones `deposit`, `withdraw`, `getBalance`, `summary`, `ownerWithdrawFromBank`, `transferOwnership`.
+- **Contrato desplegado y verificado:**  
+  - Dirección: `0xfdde109C9fF886EA245B0E35e72805f5F36eAcC4`  
+  - [Ver en Etherscan Sepolia](https://sepolia.etherscan.io/address/0xfdde109C9fF886EA245B0E35e72805f5F36eAcC4)
 
 ---
 
-## 🛠️ Estructura del proyecto
+### 2. Wall (ETH-KIPU Wall)
+
+Un muro colaborativo donde cada dirección puede agregar su nombre exactamente una vez. Permite practicar arrays, mappings, eventos y restricciones de acceso simples.
+
+#### Características:
+- Cada usuario agrega un nombre al muro solo una vez.
+- Consulta de todos los nombres y cantidad total.
+- Eventos para cada nuevo nombre.
+
+#### Archivos:
+- `contracts/modulo2/muro.sol`
+
+---
+
+### 3. ToDoList
+
+Un contrato para organizar tareas (to-dos) en la blockchain. Práctica de structs, arrays, eventos y manipulación de datos.
+
+#### Características:
+- Añadir tareas con timestamp.
+- Eliminar tareas por descripción.
+- Consultar todas las tareas almacenadas.
+- Eventos de alta y baja de tareas.
+
+#### Archivos:
+- `contracts/modulo2/toDoList.sol`
+
+---
+
+### 4. Mensaje
+
+Contrato simple para almacenar, actualizar y consultar un mensaje en la blockchain. Ideal para los primeros pasos en Solidity (storage, eventos, get/set).
+
+#### Características:
+- Setear y obtener un mensaje.
+- Evento cuando se actualiza el mensaje.
+- Práctica de variables de estado y funciones básicas.
+
+#### Archivos:
+- `contracts/modulo2/mensaje.sol`
+
+---
+
+## 🗂️ Estructura del repositorio
 
 ```
 /contracts
-  └── KipuBank.sol
-/README.md
+│
+├── kipu_bank.sol
+│
+└── modulo2/
+    ├── mensaje.sol
+    ├── muro.sol
+    └── toDoList.sol
+/scripts
+/tests
+README.md
 ```
 
 ---
 
-## 📝 Ejemplo de uso
+## 📝 Instrucciones generales
 
-### Desplegar
-
-1. Abre [Remix](https://remix.ethereum.org/).
-2. Carga el archivo `KipuBank.sol` en la carpeta `/contracts`.
-3. Compila el contrato con Solidity `0.8.30` (o compatible).
-4. Despliega usando dos argumentos enteros en _wei_:
-   - `bankCap`: Límite global de la bóveda (ejemplo: 1 ETH = `1000000000000000000`)
-   - `maxWithdrawalPerTx`: Límite máximo de retiro por transacción (ejemplo: 1 ETH = `1000000000000000000`)
-
-### Interactuar
-
-- **deposit()**: Enviar ETH al banco.  
-- **withdraw(uint256 amount)**: Retirar hasta el máximo permitido en una sola transacción.
-- **getBalance(address user)**: Consultar el saldo de cualquier usuario.
-- **summary()**: Consultar el estado global del banco.
-- **ownerWithdrawFromBank(uint256 amount)**: El owner puede retirar fondos del banco general.
-- **transferOwnership(address newOwner)**: Cambiar el owner.
-
-### Recibir ETH directo
-
-Puedes enviar ETH directamente al contrato (sin llamar a deposit) y será sumado al balance global (pero NO al balance personal).
-
----
-
-## 🔒 Seguridad y buenas prácticas
-
-- Uso de errores personalizados (`error MiError(...)`) en vez de `require` con string.
-- Checks-effects-interactions y protección contra reentrancy.
-- Modificadores `onlyOwner`, `nonReentrant` y validaciones de argumentos.
-- Variables inmutables y constantes para límites.
-- Comentarios NatSpec explicativos en cada función, variable y error.
-- Nombres claros y consistentes.
-
----
-
-## 📄 Ejemplo de despliegue
-
-- **Dirección del contrato desplegado (Sepolia):**  
-  `0xTuContratoEnSepolia`
-- **Verificado en:**  
-  [Etherscan Sepolia](https://sepolia.etherscan.io/address/0xTuContratoEnSepolia)
-
----
-
-## 🧑‍💻 Interfaz/Frontend
-
-Este repo solo contiene el contrato Solidity.  
-Puedes ver la interfaz React que interactúa con este contrato en el repo:  
-[ETH-KIPU-REMIX-frontend](https://github.com/dmbruno/ETH-KIPU-REMIX-frontend)
+1. Clona el repositorio o sube los archivos a [Remix](https://remix.ethereum.org/).
+2. Compila el contrato que desees probar (asegúrate de tener la versión 0.8.30).
+3. Despliega el contrato desde Remix.
+    - Para KipuBank, configura los argumentos del constructor en **wei** (1 ETH = 1000000000000000000).
+4. Interactúa con las funciones expuestas desde Remix o cualquier frontend compatible.
+5. Consulta los eventos y el estado en la pestaña adecuada de Remix o en el explorador de bloques.
 
 ---
 
@@ -96,12 +109,16 @@ Puedes ver la interfaz React que interactúa con este contrato en el repo:
 - [Solidity Docs](https://docs.soliditylang.org/)
 - [Remix IDE](https://remix.ethereum.org/)
 - [Etherscan Sepolia](https://sepolia.etherscan.io/)
+- [Blockscout Sepolia](https://eth-sepolia.blockscout.com/)
 
 ---
 
-## 👨‍🎓 Autor
+## ✍️ Autoría y créditos
 
-- Bruno Della Marca – [github.com/dmbruno](https://github.com/dmbruno)
+- Contrato KipuBank: dmbruno ([github.com/dmbruno](https://github.com/dmbruno))
+- Wall: dmbruno y comunidad ETH-KIPU
+- ToDoList: i3arba - 77 Innovation Labs
+- Mensaje: Diego Bruno - SaltaLabs
 
 ---
 
