@@ -431,12 +431,160 @@
 		],
 		"devdoc": {
 			"kind": "dev",
-			"methods": {},
+			"methods": {
+				"constructor": {
+					"params": {
+						"_bankCap": "Límite máximo de ETH del banco",
+						"_maxWithdrawalPerTx": "Máximo retiro por transacción"
+					}
+				},
+				"getBalance(address)": {
+					"params": {
+						"user": "Dirección a consultar"
+					},
+					"returns": {
+						"_0": "Balance del usuario en wei"
+					}
+				},
+				"ownerWithdrawFromBank(uint256)": {
+					"params": {
+						"amount": "Monto a retirar"
+					}
+				},
+				"summary()": {
+					"returns": {
+						"bankBalance_": "Balance total",
+						"cap_": "Límite del banco",
+						"deposits_": "Total de depósitos",
+						"maxWithdraw_": "Límite de retiro por operación",
+						"withdrawals_": "Total de retiros"
+					}
+				},
+				"transferOwnership(address)": {
+					"params": {
+						"newOwner": "Nueva dirección de owner"
+					}
+				},
+				"withdraw(uint256)": {
+					"params": {
+						"amount": "Cantidad a retirar en wei"
+					}
+				}
+			},
+			"stateVariables": {
+				"_ENTERED": {
+					"details": "Valor de entrada para control de reentrancy"
+				},
+				"_NOT_ENTERED": {
+					"details": "Valor por defecto para control de reentrancy"
+				},
+				"_status": {
+					"details": "Estado para control de reentrancy"
+				}
+			},
+			"title": "KipuBank - Banco simple para depósitos y retiros de ETH con límites y seguridad",
 			"version": 1
 		},
 		"userdoc": {
+			"errors": {
+				"ExceedsBankCap(uint256,uint256)": [
+					{
+						"notice": "El depósito supera el límite global del banco"
+					}
+				],
+				"ExceedsMaxWithdrawal(uint256,uint256)": [
+					{
+						"notice": "El monto excede el retiro máximo por transacción"
+					}
+				],
+				"InsufficientBalance(uint256,uint256)": [
+					{
+						"notice": "El usuario no tiene suficiente saldo para esta acción"
+					}
+				],
+				"NotOwner(address)": [
+					{
+						"notice": "Solo el owner puede ejecutar esta función"
+					}
+				],
+				"ReentrantCall()": [
+					{
+						"notice": "Se detectó un intento de reentrancia"
+					}
+				],
+				"TransferFailed(address,uint256)": [
+					{
+						"notice": "Falló la transferencia de ETH"
+					}
+				],
+				"ZeroAmount()": [
+					{
+						"notice": "No se puede enviar ni retirar 0 ETH"
+					}
+				]
+			},
+			"events": {
+				"Deposit(address,uint256,uint256,uint256)": {
+					"notice": "Se emite al depositar ETH"
+				},
+				"OwnerWithdrawal(address,uint256,uint256)": {
+					"notice": "Se emite cuando el owner retira del banco"
+				},
+				"Withdrawal(address,uint256,uint256,uint256)": {
+					"notice": "Se emite al retirar ETH"
+				}
+			},
 			"kind": "user",
-			"methods": {},
+			"methods": {
+				"VERSION()": {
+					"notice": "Versión del contrato"
+				},
+				"bankCap()": {
+					"notice": "Límite máximo de ETH que puede tener el banco"
+				},
+				"constructor": {
+					"notice": "Constructor, setea límites e inicializa el owner"
+				},
+				"deposit()": {
+					"notice": "Deposita ETH en la bóveda personal"
+				},
+				"getBalance(address)": {
+					"notice": "Devuelve el balance de un usuario"
+				},
+				"maxWithdrawalPerTx()": {
+					"notice": "Máximo que se puede retirar por transacción"
+				},
+				"owner()": {
+					"notice": "Dirección del dueño del contrato"
+				},
+				"ownerWithdrawFromBank(uint256)": {
+					"notice": "Permite al owner retirar del banco"
+				},
+				"summary()": {
+					"notice": "Devuelve el resumen global del banco"
+				},
+				"totalBankBalance()": {
+					"notice": "Balance global del banco"
+				},
+				"totalDepositsCount()": {
+					"notice": "Contador global de depósitos"
+				},
+				"totalWithdrawalsCount()": {
+					"notice": "Contador global de retiros"
+				},
+				"transferOwnership(address)": {
+					"notice": "Cambia el owner del contrato"
+				},
+				"userDepositsCount(address)": {
+					"notice": "Cantidad de depósitos por usuario"
+				},
+				"userWithdrawalsCount(address)": {
+					"notice": "Cantidad de retiros por usuario"
+				},
+				"withdraw(uint256)": {
+					"notice": "Retira ETH de la bóveda personal respetando los límites"
+				}
+			},
 			"version": 1
 		}
 	},
@@ -457,11 +605,11 @@
 	},
 	"sources": {
 		"contracts/kipu_bank.sol": {
-			"keccak256": "0xa41c843940f7d2ca7535770663cbab5bec25e6320803cecfb6c2412a69cad4a7",
+			"keccak256": "0xd4b8bee80e72f54fdaeb993753309a43e63c1055ba756e34e5b3490d44aec811",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://219d02c7c48aae570a58e10cb296beee0ce2f51f28bab45d2c0913bc26b5c418",
-				"dweb:/ipfs/Qmdi3E7i8Ejtn9uMngmCzVkqbTUTY5KL7oRvNDQ6vwn19X"
+				"bzz-raw://3fceed7986a57aa425f7bb6b3ff0bc1bed6dfea6f5ad36de22c2f4465d4c4a98",
+				"dweb:/ipfs/QmUPLisyHsmgpXKzeQVtBa9CXbYsyYv99isop2SEfc9pjv"
 			]
 		}
 	},
