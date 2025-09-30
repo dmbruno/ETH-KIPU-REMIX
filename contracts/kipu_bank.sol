@@ -127,5 +127,24 @@ contract KipuBank {
         return (totalBankBalance, totalDepositsCount, totalWithdrawalsCount, bankCap, maxWithdrawalPerTx);
     }
 
+
+ // ----------------- RECEIVE/FALLBACK -----------------
+    /// @notice Permite recibir ETH directo al contrato (sin datos).
+    receive() external payable {
+        uint256 amount = msg.value;
+        if (amount == 0) revert ZeroAmount();
+        uint256 newTotal = totalBankBalance + amount;
+        if (newTotal > bankCap) revert ExceedsBankCap(newTotal, bankCap);
+        totalBankBalance = newTotal;
+    }
+
+    /// @notice Permite recibir ETH con datos no reconocidos.
+    fallback() external payable {
+        if (msg.value > 0) {
+            uint256 newTotal = totalBankBalance + msg.value;
+            if (newTotal > bankCap) revert ExceedsBankCap(newTotal, bankCap);
+            totalBankBalance = newTotal;
+        }
+    }
     
 }

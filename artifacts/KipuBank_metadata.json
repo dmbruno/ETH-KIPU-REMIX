@@ -194,6 +194,10 @@
 				"type": "event"
 			},
 			{
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
 				"inputs": [],
 				"name": "VERSION",
 				"outputs": [
@@ -419,6 +423,10 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "receive"
 			}
 		],
 		"devdoc": {
@@ -449,11 +457,11 @@
 	},
 	"sources": {
 		"contracts/kipu_bank.sol": {
-			"keccak256": "0x6e5096c976d0c48649dd3ddbc484e2e4d2a427aa5722d1829ca3dbc9459c648a",
+			"keccak256": "0xa41c843940f7d2ca7535770663cbab5bec25e6320803cecfb6c2412a69cad4a7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://840b599243652638fbddf7c99e0b4c06e0c4d460a0c42f3f59d196b9680f2e90",
-				"dweb:/ipfs/QmXoCyXN8e83JQKLnzqStLkvnVrASjhSz5YNs71cDTMXjo"
+				"bzz-raw://219d02c7c48aae570a58e10cb296beee0ce2f51f28bab45d2c0913bc26b5c418",
+				"dweb:/ipfs/Qmdi3E7i8Ejtn9uMngmCzVkqbTUTY5KL7oRvNDQ6vwn19X"
 			]
 		}
 	},
