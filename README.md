@@ -5,6 +5,14 @@ Aquí encontrarás contratos inteligentes de complejidad creciente, con **foco p
 
 ---
 
+## ⚠️ Nota importante sobre KipuBank
+
+> **¡Advertencia!**  
+> El owner del contrato (quien lo despliega o recibe la propiedad) puede retirar el saldo total del banco, incluidos fondos de otros usuarios, usando la función `ownerWithdrawFromBank`.  
+> Los usuarios deben confiar en el owner, ya que puede vaciar el contrato en cualquier momento.
+
+---
+
 ## 🌟 Proyectos incluidos
 
 ### 1. KipuBank
@@ -21,7 +29,6 @@ Aquí encontrarás contratos inteligentes de complejidad creciente, con **foco p
 - Recepción segura de ETH directo (`receive` y `fallback`) que **actualiza los balances y emite eventos**.
 - **Función privada** para la lógica de depósito.
 - Comentarios NatSpec y código limpio.
-- **Atención:** El owner puede retirar el saldo total del contrato, incluidos fondos de otros usuarios. Los usuarios deben confiar en el owner.
 
 #### Archivos:
 - `contracts/kipu_bank.sol`
@@ -30,7 +37,7 @@ Aquí encontrarás contratos inteligentes de complejidad creciente, con **foco p
 - **Desplegar:** En Remix, setear valores para `bankCap` y `maxWithdrawalPerTx` en **wei** (1 ETH = 1000000000000000000).
 - **Interactuar:** Usar las funciones `deposit`, `withdraw`, `getBalance`, `summary`, `ownerWithdrawFromBank`, `transferOwnership`.
 - **Contrato desplegado y verificado:**
-  - Dirección: [`0xfdde109C9fF886EA245B0E35e72805f5F36eAcC4`](https://sepolia.etherscan.io/address/0xfdde109C9fF886EA245B0E35e72805f5F36eAcC4)
+  - Dirección: [`0xfD4d50d278Ee5E70df1Ff0ec7FD1A5d1E1BABc12`](https://sepolia.etherscan.io/address/0xfD4d50d278Ee5E70df1Ff0ec7FD1A5d1E1BABc12)
 
 ---
 
@@ -106,19 +113,11 @@ README.md
 
 ---
 
-## ⚠️ Nota importante sobre KipuBank
-
-> **¡Advertencia!**  
-> El owner del contrato (quien lo despliega o recibe la propiedad) puede retirar el saldo total del banco, incluidos fondos de otros usuarios, usando la función `ownerWithdrawFromBank`.  
-> Los usuarios deben confiar en el owner, ya que puede vaciar el contrato.
-
----
-
 ## 📚 Recursos útiles
 
 - [Solidity Docs](https://docs.soliditylang.org/)
 - [Remix IDE](https://remix.ethereum.org/)
-- [Etherscan Sepolia](https://sepolia.etherscan.io/)
+- [Etherscan Sepolia](https://sepolia.etherscan.io/address/0xfD4d50d278Ee5E70df1Ff0ec7FD1A5d1E1BABc12)
 - [Blockscout Sepolia](https://eth-sepolia.blockscout.com/)
 
 ---
