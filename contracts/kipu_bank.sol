@@ -18,6 +18,8 @@ contract KipuBank {
     error TransferFailed(address to, uint256 amount);
     /// @notice Se detectó un intento de reentrancia
     error ReentrantCall();
+    /// @notice No se permite la dirección 0 como owner
+    error ZeroAddress();
 
     // ----------------- CONSTANTES -----------------
     /// @notice Versión del contrato
@@ -84,20 +86,27 @@ contract KipuBank {
         _status = _NOT_ENTERED;
     }
 
-    // ----------------- FUNCIONES USUARIO -----------------
-    /// @notice Deposita ETH en la bóveda personal
-    function deposit() external payable nonReentrant {
-        uint256 amount = msg.value;
+    // ----------------- FUNCIONES PRIVADAS -----------------
+    /// @notice Lógica interna para manejar depósitos (usada por deposit, receive y fallback)
+    /// @param user Dirección que deposita
+    /// @param amount Monto a depositar
+    function _internalDeposit(address user, uint256 amount) private {
         if (amount == 0) revert ZeroAmount();
         uint256 newTotal = totalBankBalance + amount;
         if (newTotal > bankCap) revert ExceedsBankCap(newTotal, bankCap);
 
-        balances[msg.sender] += amount;
+        balances[user] += amount;
         totalBankBalance = newTotal;
         totalDepositsCount++;
-        userDepositsCount[msg.sender]++;
+        userDepositsCount[user]++;
 
-        emit Deposit(msg.sender, amount, balances[msg.sender], totalDepositsCount);
+        emit Deposit(user, amount, balances[user], totalDepositsCount);
+    }
+
+    // ----------------- FUNCIONES USUARIO -----------------
+    /// @notice Deposita ETH en la bóveda personal
+    function deposit() external payable nonReentrant {
+        _internalDeposit(msg.sender, msg.value);
     }
 
     /// @notice Retira ETH de la bóveda personal respetando los límites
@@ -121,8 +130,13 @@ contract KipuBank {
     }
 
     // ----------------- FUNCIONES OWNER -----------------
-    /// @notice Permite al owner retirar del banco
-    /// @param amount Monto a retirar
+    /**
+     * @notice Permite al owner retirar del banco SIN afectar balances individuales.
+     * @dev Esta función permite al owner extraer cualquier cantidad del balance total,
+     *      incluidos fondos depositados por otros usuarios. Esto implica un riesgo para
+     *      los depositantes: el owner puede vaciar el banco en cualquier momento.
+     * @param amount Monto a retirar
+     */
     function ownerWithdrawFromBank(uint256 amount) external onlyOwner nonReentrant {
         if (amount == 0) revert ZeroAmount();
         if (amount > totalBankBalance) revert InsufficientBalance(totalBankBalance, amount);
@@ -135,10 +149,10 @@ contract KipuBank {
         emit OwnerWithdrawal(msg.sender, amount, totalBankBalance);
     }
 
-    /// @notice Cambia el owner del contrato
+    /// @notice Cambia el owner del contrato, no se permite address(0)
     /// @param newOwner Nueva dirección de owner
     function transferOwnership(address newOwner) external onlyOwner {
-        if (newOwner == address(0)) revert NotOwner(newOwner);
+        if (newOwner == address(0)) revert ZeroAddress();
         owner = newOwner;
     }
 
@@ -171,21 +185,15 @@ contract KipuBank {
     }
 
     // ----------------- RECEIVE/FALLBACK -----------------
-    /// @notice Permite recibir ETH directo al contrato (sin datos)
-    receive() external payable {
-        uint256 amount = msg.value;
-        if (amount == 0) revert ZeroAmount();
-        uint256 newTotal = totalBankBalance + amount;
-        if (newTotal > bankCap) revert ExceedsBankCap(newTotal, bankCap);
-        totalBankBalance = newTotal;
+    /// @notice Permite recibir ETH directo al contrato (sin datos), actualiza balance y emite evento
+    receive() external payable nonReentrant {
+        _internalDeposit(msg.sender, msg.value);
     }
 
-    /// @notice Permite recibir ETH con datos no reconocidos
-    fallback() external payable {
+    /// @notice Permite recibir ETH con datos no reconocidos, actualiza balance y emite evento
+    fallback() external payable nonReentrant {
         if (msg.value > 0) {
-            uint256 newTotal = totalBankBalance + msg.value;
-            if (newTotal > bankCap) revert ExceedsBankCap(newTotal, bankCap);
-            totalBankBalance = newTotal;
+            _internalDeposit(msg.sender, msg.value);
         }
     }
 }

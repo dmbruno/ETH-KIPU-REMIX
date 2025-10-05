@@ -103,6 +103,11 @@
 			},
 			{
 				"inputs": [],
+				"name": "ZeroAddress",
+				"type": "error"
+			},
+			{
+				"inputs": [],
 				"name": "ZeroAmount",
 				"type": "error"
 			},
@@ -447,6 +452,7 @@
 					}
 				},
 				"ownerWithdrawFromBank(uint256)": {
+					"details": "Esta función permite al owner extraer cualquier cantidad del balance total,      incluidos fondos depositados por otros usuarios. Esto implica un riesgo para      los depositantes: el owner puede vaciar el banco en cualquier momento.",
 					"params": {
 						"amount": "Monto a retirar"
 					}
@@ -517,6 +523,11 @@
 						"notice": "Falló la transferencia de ETH"
 					}
 				],
+				"ZeroAddress()": [
+					{
+						"notice": "No se permite la dirección 0 como owner"
+					}
+				],
 				"ZeroAmount()": [
 					{
 						"notice": "No se puede enviar ni retirar 0 ETH"
@@ -558,7 +569,7 @@
 					"notice": "Dirección del dueño del contrato"
 				},
 				"ownerWithdrawFromBank(uint256)": {
-					"notice": "Permite al owner retirar del banco"
+					"notice": "Permite al owner retirar del banco SIN afectar balances individuales."
 				},
 				"summary()": {
 					"notice": "Devuelve el resumen global del banco"
@@ -573,7 +584,7 @@
 					"notice": "Contador global de retiros"
 				},
 				"transferOwnership(address)": {
-					"notice": "Cambia el owner del contrato"
+					"notice": "Cambia el owner del contrato, no se permite address(0)"
 				},
 				"userDepositsCount(address)": {
 					"notice": "Cantidad de depósitos por usuario"
@@ -605,11 +616,11 @@
 	},
 	"sources": {
 		"contracts/kipu_bank.sol": {
-			"keccak256": "0xd4b8bee80e72f54fdaeb993753309a43e63c1055ba756e34e5b3490d44aec811",
+			"keccak256": "0x424afd63fabb76a2105d0456b3e8433560a776324ef3f62783e9b5e92c7f524a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://3fceed7986a57aa425f7bb6b3ff0bc1bed6dfea6f5ad36de22c2f4465d4c4a98",
-				"dweb:/ipfs/QmUPLisyHsmgpXKzeQVtBa9CXbYsyYv99isop2SEfc9pjv"
+				"bzz-raw://2d12d44baf72c576c46d8797e19f10646db5842d168673102ca3f64b62395f72",
+				"dweb:/ipfs/QmbL54tDhEH8hzDs97zfDewk6rHVdxatPfD65EEUH2uogW"
 			]
 		}
 	},
