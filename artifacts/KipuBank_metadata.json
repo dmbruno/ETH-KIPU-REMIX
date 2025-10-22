@@ -148,31 +148,6 @@
 					{
 						"indexed": true,
 						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "bankBalanceAfter",
-						"type": "uint256"
-					}
-				],
-				"name": "OwnerWithdrawal",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": true,
-						"internalType": "address",
 						"name": "user",
 						"type": "address"
 					},
@@ -278,19 +253,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "ownerWithdrawFromBank",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -451,12 +413,6 @@
 						"_0": "Balance del usuario en wei"
 					}
 				},
-				"ownerWithdrawFromBank(uint256)": {
-					"details": "Esta función permite al owner extraer cualquier cantidad del balance total,      incluidos fondos depositados por otros usuarios. Esto implica un riesgo para      los depositantes: el owner puede vaciar el banco en cualquier momento.",
-					"params": {
-						"amount": "Monto a retirar"
-					}
-				},
 				"summary()": {
 					"returns": {
 						"bankBalance_": "Balance total",
@@ -538,9 +494,6 @@
 				"Deposit(address,uint256,uint256,uint256)": {
 					"notice": "Se emite al depositar ETH"
 				},
-				"OwnerWithdrawal(address,uint256,uint256)": {
-					"notice": "Se emite cuando el owner retira del banco"
-				},
 				"Withdrawal(address,uint256,uint256,uint256)": {
 					"notice": "Se emite al retirar ETH"
 				}
@@ -567,9 +520,6 @@
 				},
 				"owner()": {
 					"notice": "Dirección del dueño del contrato"
-				},
-				"ownerWithdrawFromBank(uint256)": {
-					"notice": "Permite al owner retirar del banco SIN afectar balances individuales."
 				},
 				"summary()": {
 					"notice": "Devuelve el resumen global del banco"
@@ -616,11 +566,11 @@
 	},
 	"sources": {
 		"contracts/kipu_bank.sol": {
-			"keccak256": "0x424afd63fabb76a2105d0456b3e8433560a776324ef3f62783e9b5e92c7f524a",
+			"keccak256": "0x338ae2b61f63c9a047e8510343da2260a1f2a8b9b4b57425b6b2c1682444c506",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2d12d44baf72c576c46d8797e19f10646db5842d168673102ca3f64b62395f72",
-				"dweb:/ipfs/QmbL54tDhEH8hzDs97zfDewk6rHVdxatPfD65EEUH2uogW"
+				"bzz-raw://da0babd84434aef28b3670617a843899585a0b3c501bc3a6ed1ead1dc67632d5",
+				"dweb:/ipfs/QmWagq6bHiFvbTcx68coNsCc5UZmaPD3edze3DQH7a6SPR"
 			]
 		}
 	},

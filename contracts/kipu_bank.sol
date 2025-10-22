@@ -51,8 +51,7 @@ contract KipuBank {
     event Deposit(address indexed user, uint256 amount, uint256 newBalance, uint256 depositIndex);
     /// @notice Se emite al retirar ETH
     event Withdrawal(address indexed user, uint256 amount, uint256 newBalance, uint256 withdrawalIndex);
-    /// @notice Se emite cuando el owner retira del banco
-    event OwnerWithdrawal(address indexed owner, uint256 amount, uint256 bankBalanceAfter);
+    // (Eliminado OwnerWithdrawal)
 
     // ----------------- REENTRANCY -----------------
     /// @dev Estado para control de reentrancy
@@ -130,24 +129,7 @@ contract KipuBank {
     }
 
     // ----------------- FUNCIONES OWNER -----------------
-    /**
-     * @notice Permite al owner retirar del banco SIN afectar balances individuales.
-     * @dev Esta función permite al owner extraer cualquier cantidad del balance total,
-     *      incluidos fondos depositados por otros usuarios. Esto implica un riesgo para
-     *      los depositantes: el owner puede vaciar el banco en cualquier momento.
-     * @param amount Monto a retirar
-     */
-    function ownerWithdrawFromBank(uint256 amount) external onlyOwner nonReentrant {
-        if (amount == 0) revert ZeroAmount();
-        if (amount > totalBankBalance) revert InsufficientBalance(totalBankBalance, amount);
-
-        totalBankBalance -= amount;
-
-        (bool sent, ) = msg.sender.call{value: amount}("");
-        if (!sent) revert TransferFailed(msg.sender, amount);
-
-        emit OwnerWithdrawal(msg.sender, amount, totalBankBalance);
-    }
+    // Eliminada la función ownerWithdrawFromBank
 
     /// @notice Cambia el owner del contrato, no se permite address(0)
     /// @param newOwner Nueva dirección de owner
